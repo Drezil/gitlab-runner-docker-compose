@@ -1,0 +1,21 @@
+services:
+  gitlab-runner:
+    volumes:
+      - gitlab-runner-volume:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    image: gitlab/gitlab-runner:latest
+  
+  gitlab-runner-setup:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    restart: "no"
+    image: ubuntu:latest
+    depends_on:
+      - gitlab-runner
+    entrypoint: ["bash","-c","/usr/bin/docker exec ${CONTAINER_NAME} gitlab-runner register --non-interactive --url 'https://gitlab.com/' --token \"$TOKEN\" --executor \"docker\" --docker-image alpine:latest --description \"docker-runner\""]
+
+volumes:
+  gitlab-runner-volume:
