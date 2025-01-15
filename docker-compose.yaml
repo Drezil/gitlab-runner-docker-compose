@@ -5,8 +5,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     container_name: ${CONTAINER_NAME}
     restart: unless-stopped
-    image: gitlab/gitlab-runner:latest
-  
+    build:
+      context: .
+      dockerfile: Dockerfile
+
   gitlab-runner-setup:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

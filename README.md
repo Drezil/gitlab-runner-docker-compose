@@ -41,7 +41,12 @@ TOKEN="you-registration-token"
 
 Replace `your-registration-token` with the token you obtained from GitLab in the previous step.
 
-### 4. Run Docker Compose
+### 4. (optional) Change Dockerfile
+You can add packages to be available inside the gitlab-runner instance here.
+
+The current gitlab-runner is based on Ubuntu 20.04 LTS.
+
+### 5. Run Docker Compose
 To start your new GitLab Runner, run the following command:
 
 ```bash
@@ -50,7 +55,7 @@ docker-compose up -d
 
 This command will initiate the Docker containers in detached mode, running your GitLab Runner in the background.
 
-### 5. Verify Your Runner
+### 6. Verify Your Runner
 After starting the runner, go back to your GitLab project or group settings under **CI / CD** > **Runners**. Under the **Available specific runners** section, you should see your newly registered runner listed.
 
 Congratulations! Your GitLab Runner is now set up and ready to handle jobs for your projects.
